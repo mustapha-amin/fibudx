@@ -1,16 +1,40 @@
 # fibudx
 
-A new Flutter project.
+A simple, responsive Flutter app that connects clients with exercise professionals based on their specialties. Built for the Fibud Corp Flutter Assessment.
 
-## Getting Started
+## Supported Platforms
+- Android
+- Web
 
-This project is a starting point for a Flutter application.
+## Features
+- 🌐 Web-deployable single-page Flutter app
 
-A few resources to get you started if this is your first Flutter project:
+- 🔍 Browse a list of exercise professionals
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 📂 View trainer details (e.g., specialties, reviews, etc)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 💬 Quick contact and booking options for each trainer
+
+- 📱 Responsive design for mobile and desktop
+
+## Tech Stack
+- Flutter (Stable Channel)
+
+- Dart
+
+- Vercel (for web deployment)
+
+🚀 Getting Started
+1. Clone the repo
+```bash
+git clone https://github.com/your-username/fibud-trainer-app.git
+cd fibud-trainer-app
+```
+2. Install packages
+```bash
+flutter pub get
+```
+3. Run locally
+```bash
+flutter run -d <your browser>
+```
