@@ -32,12 +32,15 @@ class InfoTab extends StatelessWidget {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Color(0xff2b2342).withOpacity(0.8),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           category.name,
-                          style: kTextStyle(15, isBold: true),
+                          style: kTextStyle(
+                            15,
+                            color: Color.fromARGB(255, 152, 122, 239),
+                          ),
                         ),
                       ),
                     ),
@@ -46,45 +49,49 @@ class InfoTab extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              Icon(Icons.person, color: Colors.grey[300], size: 30),
-              SizedBox(width: 5),
-              Text(
-                trainer.name!,
-
-                style: kTextStyle(20, isBold: true).copyWith(letterSpacing: 3),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.book, color: Colors.grey[300]),
-              SizedBox(width: 5),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * .9,
-                child: Text(trainer.education!, style: kTextStyle(15)),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.location_on, color: Colors.grey[300]),
-              SizedBox(width: 5),
-              Text(trainer.location!, style: kTextStyle(15)),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.info, color: Colors.grey[300]),
-              SizedBox(width: 5),
-              Text(
-                "${trainer.yearsOfExperience} years of experience",
-                style: kTextStyle(15),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  trainer.name!,
+                  style: kTextStyle(
+                    20,
+                    isBold: true,
+                  ).copyWith(letterSpacing: 3),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.book, color: Colors.grey[300]),
+                    SizedBox(width: 5),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .9,
+                      child: Text(trainer.education!, style: kTextStyle(15)),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.location_on, color: Colors.grey[300]),
+                    SizedBox(width: 5),
+                    Text(trainer.location!, style: kTextStyle(15)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.info, color: Colors.grey[300]),
+                    SizedBox(width: 5),
+                    Text(
+                      "${trainer.yearsOfExperience} years of experience",
+                      style: kTextStyle(15),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
