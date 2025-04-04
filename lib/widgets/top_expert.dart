@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class TopExpert extends StatelessWidget {
   final Trainer trainer;
-  const TopExpert({required this.trainer, super.key});
+  final bool isMobile;
+  const TopExpert({required this.isMobile, required this.trainer, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +15,12 @@ class TopExpert extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: screen.width * .3,
-
+            width: isMobile ? screen.width * .3 : screen.width * .2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
                 fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.3),
                   BlendMode.darken,

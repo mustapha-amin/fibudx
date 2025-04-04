@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fibudx/data/trainer_category.dart';
 import 'package:fibudx/data/trainers.dart';
 import 'package:fibudx/ktextstye.dart';
 import 'package:fibudx/widgets/bottom_sheet.dart';
@@ -16,6 +17,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  ScrollController scrollController = ScrollController();
+  List<String> categories = [
+    "All",
+    ...TrainerCategory.values.map((e) => e.name),
+  ];
+  ValueNotifier<int> selectedCategory = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -28,68 +36,174 @@ class _HomepageState extends State<Homepage> {
           fit: BoxFit.cover,
           height: 30,
         ),
-        actions: [
-          ShadIconButton(
-            backgroundColor: Color(0xff724ae6),
-            onPressed: () {},
-            icon: Icon(Icons.search, color: Colors.white),
-          ),
-        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: ListView(
-          children: [
-            SizedBox(height: 20),
-            Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...trainers
-                      .take(5)
-                      .map(
-                        (trainer) => InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                              backgroundColor: Colors.grey[900],
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) {
-                                return AppBottomSheet(trainer: trainer);
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isMobile = constraints.maxWidth < 600;
+
+          return Scrollbar(
+            controller: scrollController,
+            thumbVisibility: true,
+            thickness: 8,
+            interactive: true,
+            radius: Radius.circular(4),
+            child: ListView(
+              controller: scrollController,
+              padding: EdgeInsets.all(15),
+              children: [
+                SizedBox(height: 20),
+                Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
+                SizedBox(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...trainers
+                          .take(5)
+                          .map(
+                            (trainer) => InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  backgroundColor: Colors.grey[900],
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return AppBottomSheet(trainer: trainer);
+                                  },
+                                );
                               },
-                            );
-                          },
-                          child: TopExpert(trainer: trainer),
-                        ),
+                              child: TopExpert(
+                                isMobile: isMobile,
+                                trainer: trainer,
+                              ),
+                            ),
+                          ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                ValueListenableBuilder(
+                  valueListenable: selectedCategory,
+                  builder: (context, categoryVal, _) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...categories.map(
+                            (category) => ChoiceChip(
+                              showCheckmark: false,
+                              selected:
+                                  selectedCategory.value ==
+                                  categories.indexOf(category),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              onSelected: (value) {
+                                selectedCategory.value = categories.indexOf(
+                                  category,
+                                );
+                              },
+                              color: WidgetStatePropertyAll(
+                                categoryVal == categories.indexOf(category)
+                                    ? Color(0xff724ae6)
+                                    : Colors.grey[800],
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              label: Text(
+                                category,
+                                style: kTextStyle(
+                                  12,
+                                  isBold: true,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            
-            
-            ...trainers.map(
-              (trainer) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      backgroundColor: Colors.grey[900],
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return AppBottomSheet(trainer: trainer);
-                      },
                     );
                   },
-                  child: TrainerWidget(trainer: trainer),
                 ),
-              ),
+                ValueListenableBuilder(
+                  valueListenable: selectedCategory,
+                  builder: (context, category, _) {
+                    var filteredTrainers = trainers.where(
+                      (trainer) =>
+                          category == 0
+                              ? true
+                              : trainer.categories!.contains(
+                                TrainerCategory.values.elementAt(category - 1),
+                              ),
+                    );
+
+                    return isMobile
+                        ? Column(
+                          children: [
+                            ...filteredTrainers.map(
+                              (trainer) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      backgroundColor: Colors.grey[900],
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return AppBottomSheet(trainer: trainer);
+                                      },
+                                    );
+                                  },
+                                  child: TrainerWidget(
+                                    isMobile: isMobile,
+                                    trainer: trainer,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                        : GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1.5,
+                              ),
+                          itemCount: filteredTrainers.length,
+                          itemBuilder: (context, index) {
+                            var trainer = filteredTrainers.elementAt(index);
+                            return InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  backgroundColor: Colors.grey[900],
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return AppBottomSheet(trainer: trainer);
+                                  },
+                                );
+                              },
+                              child: TrainerWidget(
+                                isMobile: isMobile,
+                                trainer: trainer,
+                              ),
+                            );
+                          },
+                        );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

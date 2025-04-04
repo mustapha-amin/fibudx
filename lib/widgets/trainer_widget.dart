@@ -6,16 +6,20 @@ import 'package:flutter/material.dart';
 
 class TrainerWidget extends StatelessWidget {
   final Trainer trainer;
-  const TrainerWidget({super.key, required this.trainer});
+  final bool isMobile;
+  const TrainerWidget({
+    super.key,
+    required this.isMobile,
+    required this.trainer,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          height: 300,
+          height: isMobile ? 300 : 400,
           width: double.infinity,
-
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
@@ -30,16 +34,16 @@ class TrainerWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 5,
+          bottom: 8,
           left: 5,
           child: Text.rich(
             TextSpan(
               text: trainer.name,
-              style: kTextStyle(25, isBold: true),
+              style: kTextStyle(isMobile ? 25 : 20, isBold: true),
               children: [
                 TextSpan(
                   text: "\n${trainer.charge} won",
-                  style: kTextStyle(18, isBold: true),
+                  style: kTextStyle(isMobile ? 18 : 14, isBold: true),
                 ),
               ],
             ),

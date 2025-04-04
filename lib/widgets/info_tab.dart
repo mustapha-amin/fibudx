@@ -68,7 +68,7 @@ class InfoTab extends StatelessWidget {
                     Icon(Icons.book, color: Colors.grey[300]),
                     SizedBox(width: 5),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * .9,
+                      width: MediaQuery.of(context).size.width * .8,
                       child: Text(trainer.education!, style: kTextStyle(15)),
                     ),
                   ],
