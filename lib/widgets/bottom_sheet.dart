@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:fibudx/ktextstye.dart';
 import 'package:fibudx/models/trainer.dart';
+import 'package:fibudx/widgets/info_tab.dart';
+import 'package:fibudx/widgets/reviews_tab.dart';
+import 'package:fibudx/widgets/workout_plans_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -19,8 +22,8 @@ class AppBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             TabBar(
-              unselectedLabelStyle: kTextStyle(15, color: Colors.grey[300]!),
-              labelStyle: kTextStyle(15, isBold: true, color: Colors.white),
+              unselectedLabelStyle: kTextStyle(13, color: Colors.grey[300]!),
+              labelStyle: kTextStyle(14, isBold: true, color: Colors.white),
               indicatorColor: Color(0xff724ae6),
               tabs: [
                 Tab(text: "Info"),
@@ -31,60 +34,9 @@ class AppBottomSheet extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  // Info Tab
-                  SingleChildScrollView(
-                    child: Column(
-                      spacing: 5,
-                      children: [
-                        Image.network(trainer.imageUrl!),
-                        Row(
-                          children: [
-                            Icon(Icons.person, color: Colors.grey[300]),
-                            SizedBox(width: 5),
-                            Text(
-                              trainer.name!,
-
-                              style: kTextStyle(
-                                20,
-                                isBold: true,
-                              ).copyWith(letterSpacing: 3),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.location_on, color: Colors.grey[300]),
-                            SizedBox(width: 5),
-                            Text(trainer.location!, style: kTextStyle(15)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.info, color: Colors.grey[300]),
-                            SizedBox(width: 5),
-                            Text(
-                              "${Random().nextInt(10) + 2} years of experience",
-                              style: kTextStyle(15),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Workout Plans Tab
-                  Center(
-                    child: Text(
-                      "Workout plans will be displayed here.",
-                      style: kTextStyle(14),
-                    ),
-                  ),
-                  // Reviews Tab
-                  Center(
-                    child: Text(
-                      "Reviews will be displayed here.",
-                      style: kTextStyle(14),
-                    ),
-                  ),
+                  InfoTab(trainer: trainer),
+                  WorkoutPlansTab(),
+                  ReviewsTab(),
                 ],
               ),
             ),
@@ -93,8 +45,32 @@ class AppBottomSheet extends StatelessWidget {
               children: [
                 Expanded(
                   child: ShadButton(
-                    backgroundColor: Color(0xff724ae6),
-                    onPressed: () {},
+                    backgroundColor: Colors.grey,
+                    onPressed: () {
+                      showShadDialog(
+                        context: context,
+                        builder: (context) {
+                          return ShadDialog.alert(
+                            title: Text(
+                              "Coming soon",
+                              style: kTextStyle(18, color: Colors.black),
+                            ),
+                            constraints: BoxConstraints(maxWidth: 350),
+
+                            radius: BorderRadius.circular(20),
+
+                            actions: [
+                              ShadButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     child: Text("Chat", style: kTextStyle(13, isBold: true)),
                   ),
                 ),
@@ -102,7 +78,42 @@ class AppBottomSheet extends StatelessWidget {
                   child: ShadButton(
                     backgroundColor: Color(0xff724ae6),
                     onPressed: () {
-                      // Book action
+                      showShadDialog(
+                        context: context,
+                        builder: (context) {
+                          return ShadDialog.alert(
+                            title: Text(
+                              "Trainer Booked!",
+                              style: kTextStyle(18, color: Colors.black),
+                            ),
+                            constraints: BoxConstraints(maxWidth: 350),
+
+                            radius: BorderRadius.circular(20),
+                            description: Column(
+                              children: [
+                                Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xff724ae6),
+                                  size: 100,
+                                ),
+                                Text(
+                                  "You have successfully booked ${trainer.name} for your training sessions.",
+                                  textAlign: TextAlign.center,
+                                  style: kTextStyle(14),
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              ShadButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: Text("Book", style: kTextStyle(13, isBold: true)),
                   ),

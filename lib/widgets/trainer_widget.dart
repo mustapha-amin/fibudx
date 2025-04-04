@@ -38,7 +38,7 @@ class TrainerWidget extends StatelessWidget {
               style: kTextStyle(25, isBold: true),
               children: [
                 TextSpan(
-                  text: "\n${Random().nextInt(30000) + 10000} won",
+                  text: "\n${trainer.charge} won",
                   style: kTextStyle(18, isBold: true),
                 ),
               ],

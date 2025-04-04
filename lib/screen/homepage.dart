@@ -29,13 +29,10 @@ class _HomepageState extends State<Homepage> {
           height: 30,
         ),
         actions: [
-          ShadButton(
+          ShadIconButton(
             backgroundColor: Color(0xff724ae6),
             onPressed: () {},
-            child: Text(
-              "Become a trainer",
-              style: kTextStyle(13, isBold: true),
-            ),
+            icon: Icon(Icons.search, color: Colors.white),
           ),
         ],
       ),
@@ -44,7 +41,7 @@ class _HomepageState extends State<Homepage> {
         child: ListView(
           children: [
             SizedBox(height: 20),
-            Text("Top experts", style: kTextStyle(18)),
+            Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
             SizedBox(
               height: 200,
               child: ListView(
@@ -52,7 +49,21 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   ...trainers
                       .take(5)
-                      .map((trainer) => TopExpert(trainer: trainer)),
+                      .map(
+                        (trainer) => InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.grey[900],
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return AppBottomSheet(trainer: trainer);
+                              },
+                            );
+                          },
+                          child: TopExpert(trainer: trainer),
+                        ),
+                      ),
                 ],
               ),
             ),
@@ -67,10 +78,7 @@ class _HomepageState extends State<Homepage> {
                       isScrollControlled: true,
                       context: context,
                       builder: (context) {
-                        return AppBottomSheet(
-                          trainer: trainer,
-                         
-                        );
+                        return AppBottomSheet(trainer: trainer);
                       },
                     );
                   },
