@@ -27,8 +27,8 @@ A simple, responsive Flutter app that connects clients with exercise professiona
 🚀 Getting Started
 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/fibud-trainer-app.git
-cd fibud-trainer-app
+git clone https://github.com/mustapha-amin/fibudx.git
+cd fibudx
 ```
 2. Install packages
 ```bash
