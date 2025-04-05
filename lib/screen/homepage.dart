@@ -37,6 +37,7 @@ class _HomepageState extends State<Homepage> {
           fit: BoxFit.cover,
           height: 30,
         ),
+        scrolledUnderElevation: 0,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -55,7 +56,7 @@ class _HomepageState extends State<Homepage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 20),
-                  Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
+                  Text("Top experts 🔥", style: kTextStyle(14, isBold: true)),
                   SizedBox(height: 20),
                   SizedBox(
                     height: 200,

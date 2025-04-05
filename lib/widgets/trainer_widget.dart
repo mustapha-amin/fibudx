@@ -36,7 +36,7 @@ class TrainerWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.4),
+                        Colors.black.withOpacity(0.5),
                         BlendMode.darken,
                       ),
 
@@ -48,15 +48,15 @@ class TrainerWidget extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 8,
-                  left: 5,
+                  left: 15,
                   child: Text.rich(
                     TextSpan(
                       text: trainer.name,
-                      style: kTextStyle(isMobile ? 25 : 20, isBold: true),
+                      style: kTextStyle(isMobile ? 16 : 20, isBold: true),
                       children: [
                         TextSpan(
                           text: "\n${trainer.charge} won",
-                          style: kTextStyle(isMobile ? 18 : 14, isBold: true),
+                          style: kTextStyle(14),
                         ),
                       ],
                     ),

@@ -40,85 +40,88 @@ class AppBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: ShadButton(
-                    backgroundColor: Colors.grey,
-                    onPressed: () {
-                      showShadDialog(
-                        context: context,
-                        builder: (context) {
-                          return ShadDialog.alert(
-                            title: Text(
-                              "Coming soon",
-                              style: kTextStyle(18, color: Colors.white),
-                            ),
-                            constraints: BoxConstraints(maxWidth: 350),
-
-                            radius: BorderRadius.circular(20),
-
-                            actions: [
-                              ShadButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("OK"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: ShadButton(
+                      backgroundColor: Colors.grey,
+                      onPressed: () {
+                        showShadDialog(
+                          context: context,
+                          builder: (context) {
+                            return ShadDialog.alert(
+                              title: Text(
+                                "Coming soon",
+                                style: kTextStyle(18, color: Colors.white),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Text("Chat", style: kTextStyle(13, isBold: true)),
-                  ),
-                ),
-                Expanded(
-                  child: ShadButton(
-                    backgroundColor: Color(0xff724ae6),
-                    onPressed: () {
-                      showShadDialog(
-                        context: context,
-                        builder: (context) {
-                          return ShadDialog.alert(
-                            title: Text(
-                              "Trainer Booked!",
-                              style: kTextStyle(18, color: Colors.black),
-                            ),
-                            constraints: BoxConstraints(maxWidth: 350),
+                              constraints: BoxConstraints(maxWidth: 350),
 
-                            radius: BorderRadius.circular(20),
-                            description: Column(
-                              children: [
-                                Icon(
-                                  Icons.check_circle,
-                                  color: Color(0xff724ae6),
-                                  size: 100,
-                                ),
-                                Text(
-                                  "You have successfully booked ${trainer.name} for your training sessions.",
-                                  textAlign: TextAlign.center,
-                                  style: kTextStyle(14),
+                              radius: BorderRadius.circular(20),
+
+                              actions: [
+                                ShadButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("OK"),
                                 ),
                               ],
-                            ),
-                            actions: [
-                              ShadButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("OK"),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Text("Book", style: kTextStyle(13, isBold: true)),
+                            );
+                          },
+                        );
+                      },
+                      child: Text("Chat", style: kTextStyle(13, isBold: true)),
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: ShadButton(
+                      backgroundColor: Color(0xff724ae6),
+                      onPressed: () {
+                        showShadDialog(
+                          context: context,
+                          builder: (context) {
+                            return ShadDialog.alert(
+                              title: Text(
+                                "Trainer Booked!",
+                                style: kTextStyle(18, color: Colors.black),
+                              ),
+                              constraints: BoxConstraints(maxWidth: 350),
+
+                              radius: BorderRadius.circular(20),
+                              description: Column(
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Color(0xff724ae6),
+                                    size: 100,
+                                  ),
+                                  Text(
+                                    "You have successfully booked ${trainer.name} for your training sessions.",
+                                    textAlign: TextAlign.center,
+                                    style: kTextStyle(14),
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                ShadButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("OK"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Text("Book", style: kTextStyle(13, isBold: true)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
