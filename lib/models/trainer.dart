@@ -11,6 +11,7 @@ class Trainer {
   int? yearsOfExperience;
   int? charge;
   List<TrainerCategory>? categories;
+  double? rating;
 
   Trainer({
     this.name,
@@ -27,5 +28,6 @@ class Trainer {
                  TrainerCategory.values[Random().nextInt(
                    TrainerCategory.values.length,
                  )],
-           ).toSet().toList();
+           ).toSet().toList(),
+       rating = 4 + (Random().nextDouble());
 }

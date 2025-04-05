@@ -53,6 +53,7 @@ class _HomepageState extends State<Homepage> {
               children: [
                 SizedBox(height: 20),
                 Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
+                SizedBox(height: 20),
                 SizedBox(
                   height: 200,
                   child: ListView(
@@ -112,6 +113,7 @@ class _HomepageState extends State<Homepage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
+                              labelPadding: EdgeInsets.all(5),
                               label: Text(
                                 category,
                                 style: kTextStyle(
