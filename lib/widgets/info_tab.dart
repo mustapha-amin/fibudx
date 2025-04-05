@@ -62,15 +62,11 @@ class InfoTab extends StatelessWidget {
                   ).copyWith(letterSpacing: 3),
                 ),
                 SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Wrap(
                   children: [
                     Icon(Icons.book, color: Colors.grey[300]),
                     SizedBox(width: 5),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .8,
-                      child: Text(trainer.education!, style: kTextStyle(15)),
-                    ),
+                    Text(trainer.education!, style: kTextStyle(15)),
                   ],
                 ),
                 Row(

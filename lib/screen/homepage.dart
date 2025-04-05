@@ -48,162 +48,173 @@ class _HomepageState extends State<Homepage> {
             thickness: 8,
             interactive: true,
             radius: Radius.circular(4),
-            child: ListView(
+            child: SingleChildScrollView(
               controller: scrollController,
               padding: EdgeInsets.all(15),
-              children: [
-                SizedBox(height: 20),
-                Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
-                SizedBox(height: 20),
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...trainers
-                          .take(5)
-                          .map(
-                            (trainer) => InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  backgroundColor: Colors.grey[900],
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return AppBottomSheet(trainer: trainer);
-                                  },
-                                );
-                              },
-                              child: TopExpert(
-                                isMobile: isMobile,
-                                trainer: trainer,
-                              ),
-                            ),
-                          ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                ValueListenableBuilder(
-                  valueListenable: selectedCategory,
-                  builder: (context, categoryVal, _) {
-                    return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text("Top experts 🔥", style: kTextStyle(20, isBold: true)),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    height: 200,
+                    child: ListView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...categories.map(
-                            (category) => ChoiceChip(
-                              showCheckmark: false,
-                              selected:
-                                  selectedCategory.value ==
-                                  categories.indexOf(category),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
-                              ),
-                              onSelected: (value) {
-                                selectedCategory.value = categories.indexOf(
-                                  category,
-                                );
-                              },
-                              color: WidgetStatePropertyAll(
-                                categoryVal == categories.indexOf(category)
-                                    ? Color(0xff724ae6)
-                                    : Colors.grey[800],
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              labelPadding: EdgeInsets.all(5),
-                              label: Text(
-                                category,
-                                style: kTextStyle(
-                                  12,
-                                  isBold: true,
-                                  color: Colors.white,
+                      children: [
+                        ...trainers
+                            .take(5)
+                            .map(
+                              (trainer) => InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    backgroundColor: Colors.grey[900],
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return AppBottomSheet(trainer: trainer);
+                                    },
+                                  );
+                                },
+                                child: TopExpert(
+                                  isMobile: isMobile,
+                                  trainer: trainer,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                ValueListenableBuilder(
-                  valueListenable: selectedCategory,
-                  builder: (context, category, _) {
-                    var filteredTrainers = trainers.where(
-                      (trainer) =>
-                          category == 0
-                              ? true
-                              : trainer.categories!.contains(
-                                TrainerCategory.values.elementAt(category - 1),
-                              ),
-                    );
-
-                    return isMobile
-                        ? Column(
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ValueListenableBuilder(
+                    valueListenable: selectedCategory,
+                    builder: (context, categoryVal, _) {
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: 3,
                           children: [
-                            ...filteredTrainers.map(
-                              (trainer) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
+                            ...categories.map(
+                              (category) => ChoiceChip(
+                                showCheckmark: false,
+                                selected:
+                                    selectedCategory.value ==
+                                    categories.indexOf(category),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
                                 ),
-                                child: InkWell(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      backgroundColor: Colors.grey[900],
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return AppBottomSheet(trainer: trainer);
-                                      },
-                                    );
-                                  },
-                                  child: TrainerWidget(
-                                    isMobile: isMobile,
-                                    trainer: trainer,
+                                onSelected: (value) {
+                                  selectedCategory.value = categories.indexOf(
+                                    category,
+                                  );
+                                },
+
+                                color: WidgetStatePropertyAll(
+                                  categoryVal == categories.indexOf(category)
+                                      ? Color(0xff724ae6)
+                                      : Colors.grey[800],
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                labelPadding: EdgeInsets.all(5),
+                                label: Text(
+                                  category,
+                                  style: kTextStyle(
+                                    12,
+                                    isBold: true,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
                           ],
-                        )
-                        : GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 1.5,
+                        ),
+                      );
+                    },
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: selectedCategory,
+                    builder: (context, category, _) {
+                      var filteredTrainers = trainers.where(
+                        (trainer) =>
+                            category == 0
+                                ? true
+                                : trainer.categories!.contains(
+                                  TrainerCategory.values.elementAt(
+                                    category - 1,
+                                  ),
+                                ),
+                      );
+
+                      return isMobile
+                          ? Column(
+                            children: [
+                              ...filteredTrainers.map(
+                                (trainer) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        backgroundColor: Colors.grey[900],
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return AppBottomSheet(
+                                            trainer: trainer,
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: SizedBox(
+                                      height: 280,
+                                      child: TrainerWidget(
+                                        isMobile: isMobile,
+                                        trainer: trainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                          itemCount: filteredTrainers.length,
-                          itemBuilder: (context, index) {
-                            var trainer = filteredTrainers.elementAt(index);
-                            return InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  backgroundColor: Colors.grey[900],
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return AppBottomSheet(trainer: trainer);
-                                  },
-                                );
-                              },
-                              child: TrainerWidget(
-                                isMobile: isMobile,
-                                trainer: trainer,
-                              ),
-                            );
-                          },
-                        );
-                  },
-                ),
-              ],
+                            ],
+                          )
+                          : GridView.builder(
+                            shrinkWrap: true,
+                            physics: AlwaysScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                            itemCount: filteredTrainers.length,
+                            itemBuilder: (context, index) {
+                              var trainer = filteredTrainers.elementAt(index);
+                              return InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    backgroundColor: Colors.grey[900],
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return AppBottomSheet(trainer: trainer);
+                                    },
+                                  );
+                                },
+                                child: TrainerWidget(
+                                  isMobile: isMobile,
+                                  trainer: trainer,
+                                ),
+                              );
+                            },
+                          );
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },

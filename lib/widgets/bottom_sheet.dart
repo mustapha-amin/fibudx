@@ -53,7 +53,7 @@ class AppBottomSheet extends StatelessWidget {
                           return ShadDialog.alert(
                             title: Text(
                               "Coming soon",
-                              style: kTextStyle(18, color: Colors.black),
+                              style: kTextStyle(18, color: Colors.white),
                             ),
                             constraints: BoxConstraints(maxWidth: 350),
 
