@@ -95,36 +95,35 @@ class _HomepageState extends State<Homepage> {
                           spacing: 3,
                           children: [
                             ...categories.map(
-                              (category) => ChoiceChip(
-                                showCheckmark: false,
-                                selected:
-                                    selectedCategory.value ==
-                                    categories.indexOf(category),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
-                                ),
-                                onSelected: (value) {
-                                  selectedCategory.value = categories.indexOf(
-                                    category,
-                                  );
-                                },
-
-                                color: WidgetStatePropertyAll(
-                                  categoryVal == categories.indexOf(category)
-                                      ? Color(0xff724ae6)
-                                      : Colors.grey[800],
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                labelPadding: EdgeInsets.all(5),
-                                label: Text(
-                                  category,
-                                  style: kTextStyle(
-                                    12,
-                                    isBold: true,
-                                    color: Colors.white,
+                              (category) => Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    selectedCategory.value = categories.indexOf(
+                                      category,
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          categoryVal ==
+                                                  categories.indexOf(category)
+                                              ? Color(0xff724ae6)
+                                              : Colors.grey[800],
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      category,
+                                      style: kTextStyle(
+                                        12,
+                                        isBold: true,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
