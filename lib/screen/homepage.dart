@@ -7,6 +7,7 @@ import 'package:fibudx/widgets/bottom_sheet.dart';
 import 'package:fibudx/widgets/top_expert.dart';
 import 'package:fibudx/widgets/trainer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class Homepage extends StatefulWidget {
