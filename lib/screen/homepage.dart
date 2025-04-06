@@ -32,8 +32,8 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
-        title: SvgPicture.network(
-          'https://fibud.kr/assets/logo-CHMDW23Y.svg',
+        title: SvgPicture.asset(
+          'asset/logo.svg',
           fit: BoxFit.cover,
           height: 30,
         ),
